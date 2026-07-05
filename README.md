@@ -8,6 +8,8 @@ The dashboard consists of two high-impact visual tracking layouts designed for i
 1. **Page 1: Revenue & Sales Overview** – Focusing on financial trends, customer order volumes, cumulative marketplace growth, and critical revenue channels.
 2. **Page 2: Logistics & Customer Satisfaction** – Focusing on performance metrics, isolating fulfillment timelines, and evaluating the exact correlation between shipping performance and public feedback.
 
+Check out the PowerBI dashboard here : [project_sql folder](dashboard)
+
 ---
 
 ## 📸 Dashboard Previews
