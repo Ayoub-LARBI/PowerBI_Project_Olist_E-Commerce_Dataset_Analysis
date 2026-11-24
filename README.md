@@ -1,65 +1,132 @@
-# 📊 Olist E-Commerce Executive Performance & Business Intelligence Dashboard
+# 📊 Olist E-commerce Dashboard | Power BI
 
 ## 📌 Project Overview
 
-This project delivers an enterprise-grade, interactive business intelligence solution built using **Power BI Desktop** and fueled by an optimized **PostgreSQL** data pipeline. It expands on the foundational deep-dive queries from the Olist SQL analysis repo by synthesizing macro financial trends and intricate customer satisfaction dynamics into a polished, executive-ready dashboard tool.
+A two-page Power BI dashboard on the Olist Brazilian e-commerce dataset (Sep 2016 to Oct 2018). It builds on my [Olist SQL analysis](https://github.com/Ayoub-LARBI/SQL_Project_Olist_E-Commerce_Dataset_Analysis): the analysis queries were written in PostgreSQL first, then their result sets were loaded into Power BI and turned into an interactive report.
 
-The dashboard consists of two high-impact visual tracking layouts designed for instant stakeholder interpretation:
-1. **Page 1: Revenue & Sales Overview** – Focusing on financial trends, customer order volumes, cumulative marketplace growth, and critical revenue channels.
-2. **Page 2: Logistics & Customer Satisfaction** – Focusing on performance metrics, isolating fulfillment timelines, and evaluating the exact correlation between shipping performance and public feedback.
+1. **Page 1: Revenue Overview**: revenue, orders, monthly and cumulative revenue, top categories, and order fulfillment status.
+2. **Page 2: Logistics & Customer Satisfaction**: review scores, on-time vs late delivery ratings, the monthly rating trend, and the lowest-rated categories.
 
 ---
 
 ## 📸 Dashboard Previews
 
-### 🔹 Page 1: Revenue & Sales Overview
-![Revenue & Sales Overview](images/Revenue%20&%20Sales%20Overview%20ss.png)
+### 🔹 Page 1: Revenue Overview
+![Revenue Overview](images/page1_revenue_overview.png)
 
 ### 🔹 Page 2: Logistics & Customer Satisfaction
-![Logistics & Customer Satisfaction](images/Logistics%20&%20Customer%20Satisfaction%20ss.png)
+![Logistics & Customer Satisfaction](images/page2_logistics_satisfaction.png)
 
 ---
 
-## 🎯 Dashboard Objectives & Tracked Analytics
+## 🎯 Questions the Dashboard Answers
 
-### 💰 Revenue & Macro Sales View
-* **Financial Velocity:** Track cumulative marketplace scaling metrics directly across the 2016–2018 operating window.
-* **Volume Analysis:** Evaluate the health of monthly transaction trends against shifting average order values.
-* **Seasonal Demand:** Identify high-volume transaction shifts to assist logistics planning groups.
+### 💰 Revenue Overview
+* How much revenue did the marketplace generate, and how did it grow month by month?
+* Which product categories generate the most revenue?
+* What share of orders were delivered, and what happened to the rest?
 
-### 🚚 Logistics & Customer Review Diagnostics
-* **Operational Impact:** Isolate the score difference between on-time fulfillments vs. late deliveries to quantify the business cost of carrier delays.
-* **Sentiment Spreading:** Monitor real-time shifts in the global satisfaction trend index over a strict chronological timeline.
-* **Feedback Deep-Dive:** Audit raw text feedback distribution rates to calculate how heavily delivery frictions spark customer commentary.
-* **Product Segments:** Uncover structural product flaws by grouping exact average review scores directly across individual categories.
-
----
-
-## 🛠️ Data Pipeline: Extracting from PostgreSQL
-
-To ensure ultra-fast, direct data processing and preserve local computing memory inside the BI layout, all analytical business logic was explicitly pushed upstream to the relational database layer. The frontend application ingests data via highly targeted, production-ready extraction queries:
-
-1. **`01_executive_sales_performance.sql`**: Houses advanced analytical window partitions that calculate strict, deduplicated monthly billing aggregates and continuous running totals.
-2. **`02_logistics_satisfaction_deepdive.sql`**: Dynamically ties item categorization translations with feedback metrics while computing isolated performance baselines for logistics delays.
-3. **`03_global_satisfaction_kpis.sql`**: Bypasses heavy tabular row duplication entirely to feed distinct executive totals to visual high-level cards.
-
-### 🔌 How to Connect and Load the Data
-1. Launch **Power BI Desktop**.
-2. Go to the home ribbon, click **Get Data ➔ PostgreSQL database**.
-3. Provide your server connection properties and expand the **Advanced options** statement box.
-4. Open any query inside the `sql_queries/` file folder, copy the script text, paste it into the box, and click **Load**.
-5. *Pro Tip:* Once the data finishes loading, select the text-based `month` column in the Data pane, navigate to **Column tools**, and click **Sort by column ➔ `month_date`** to guarantee a perfectly sequential chronological chart timeline!
+### 🚚 Logistics & Customer Satisfaction
+* How satisfied are customers overall, and how are the ratings distributed?
+* Do late deliveries receive lower ratings than on-time ones?
+* Did satisfaction hold up over time?
+* Which product categories receive the lowest ratings?
 
 ---
 
-## 🧠 Core BI & UI/UX Skills Demonstrated
+## 📊 Key Findings
 
-This portfolio piece highlights an advanced engineering and design skillset engineered to deliver professional data products:
+### 💰 Revenue (item price + freight)
+* Total revenue is **R$15.8M** (R$15,843,553) across the full period.
+* Monthly revenue grew through 2017, peaked in Nov 2017 at about R$1.2M, and stayed around R$1M a month in 2018.
+* **Health & Beauty (R$1.44M)** and **Watches & Gifts (R$1.31M)** lead category revenue.
+* **97% of orders were delivered.** The rest: shipped 1,110, canceled 626, unavailable 609, invoiced 315, processing 302.
 
-* **Advanced Upstream Modeling:** Eliminating chaotic DAX dependencies by constructing pre-calculated, weighted database aggregates natively inside multi-layered Common Table Expressions (CTEs).
-* **Granularity Control:** Overcoming structural row-expansion bugs (the classic multi-item order fan-out issue) to present clean, distinct data volumes.
-* **Executive UI/UX Alignment:** Enforcing high-contrast canvas spacing using floating card architectures, hidden grid guidelines, and standardized warning color palettes to direct a user's eyes to critical issues.
-* **De-cluttered Design:** Ruthlessly stripping axis titles, redundant borders, and label noise to protect empty whitespace and keep visual look simple.
+### ⭐ Customer Satisfaction
+* The average review score is **4.09** across **99,224 reviews**. 57.8% are 5 stars and 14.7% are 1 or 2 stars.
+* On-time deliveries average **4.29 stars** vs **2.57** for late ones, a 1.72-point gap.
+* The monthly average rating stayed between 3.7 and 4.3 stars (Jan 2017 to Aug 2018).
+* The lowest-rated categories (at least 50 reviews) are Office Furniture (3.5), Fashion Male Clothing (3.6) and Fixed Telephony (3.7).
+
+Ratings are associated with delivery performance. This is observational data, so it does not prove that late delivery caused the lower scores.
+
+---
+
+## 🛠️ Data Pipeline: PostgreSQL to Power BI
+
+The analysis logic lives in PostgreSQL. Power BI loads the result sets of three queries from `sql_queries/`:
+
+1. **`01_executive_sales_performance.sql`**: monthly revenue aggregates and running totals (Page 1).
+2. **`02_logistics_satisfaction_deepdive.sql`**: review metrics by category and delivery timing (Page 2).
+3. **`03_global_satisfaction_kpis.sql`**: overall review KPIs (average score, total reviews, comment rate) for the Page 2 cards.
+
+The review score distribution chart uses the review-level `Order Reviews` table.
+
+### 🔌 How to Load the Data
+1. Open **Power BI Desktop** and go to **Get Data > PostgreSQL database**.
+2. Enter your server and database, then open **Advanced options**.
+3. Paste one query from `sql_queries/` into the SQL statement box and click **Load**. Repeat for each query.
+4. Select the text `month` column, go to **Column tools > Sort by column** and choose `month_date`, so charts are in chronological order.
+
+---
+
+## 🧮 Key DAX Measures
+
+```DAX
+Total Revenue = SUM('Sales & Revenue Data'[revenue])
+
+Total Orders = SUM('Sales & Revenue Data'[total_orders])
+
+Average Order Value = DIVIDE([Total Revenue], [Total Orders])
+
+Cumulative Revenue =
+CALCULATE(
+    [Total Revenue],
+    FILTER(
+        ALL('Sales & Revenue Data'[month_date]),
+        'Sales & Revenue Data'[month_date] <= MAX('Sales & Revenue Data'[month_date])
+    )
+)
+
+Delivered % =
+DIVIDE(
+    CALCULATE([Total Orders], 'Sales & Revenue Data'[order_status] = "delivered"),
+    CALCULATE([Total Orders], ALL('Sales & Revenue Data'[order_status]))
+)
+
+Reviews = COUNTROWS('Order Reviews')
+
+Review Share % =
+DIVIDE(
+    [Reviews],
+    CALCULATE([Reviews], ALL('Order Reviews'[review_score]))
+)
+
+Delivery Rating Gap =
+AVERAGE('Review Data'[avg_score_on_time]) - AVERAGE('Review Data'[avg_score_late])
+```
+
+The fulfillment chart title is a measure too (`Fulfillment Title`), so it updates with the data.
+
+---
+
+## ⚠️ Data Notes and Limitations
+
+* **Revenue basis:** Page 1 revenue is item price + freight (R$15.84M). My [SQL project](ADD-SQL-REPO-URL) reports R$16.0M, which is recorded payments (`payment_value`). The two totals differ by about 1%.
+* **Order counts:** Page 1 order counts are summed across category groups, so an order with items in two categories is counted twice. Totals can exceed distinct orders by roughly 1% (about 100K here vs 99,440 in SQL). Review counts on Page 2 are exact (99,224).
+* **Time range:** trend charts show Jan 2017 to Aug 2018. 2016 and Sep to Oct 2018 have very few orders or reviews and are excluded.
+* **Definitions:** a delivery is late if it arrived after the estimated delivery date. Only delivered orders are included. Category ratings include only categories with at least 50 reviews.
+* **Not causal:** ratings and delivery timing are associated, not proven to be cause and effect.
+* **Revenue is not profit:** the dataset has no cost data.
+
+---
+
+## 🧠 Skills Demonstrated
+
+* **SQL to Power BI workflow:** analysis written in PostgreSQL, result sets loaded into a report.
+* **DAX:** measures, a running total with `CALCULATE`, `FILTER` and `ALL`, safe division with `DIVIDE`, and a chart title driven by a measure.
+* **Validation:** dashboard totals were checked against SQL results (99,224 reviews, 4.09 average score, 41.3% comment rate, 4.29 vs 2.57 stars). The Page 1 differences are documented above.
+* **Dashboard design:** the same layout on both pages, insight-style titles, one accent color, and footnotes that state definitions.
 
 ---
 
@@ -75,8 +142,8 @@ This portfolio piece highlights an advanced engineering and design skillset engi
 │   └── 📄 [Raw Olist CSV dataset source files]
 │
 ├── 📁 images
-│   ├── 📸 Logistics & Customer Satisfaction ss.png
-│   └── 📸 Revenue & Sales Overview ss.png
+│   ├── 📸 page1_revenue_overview.png
+│   └── 📸 page2_logistics_satisfaction.png
 │
 ├── 📁 sql_queries
 │   ├── 📄 01_executive_sales_performance.sql
@@ -84,3 +151,11 @@ This portfolio piece highlights an advanced engineering and design skillset engi
 │   └── 📄 03_global_satisfaction_kpis.sql
 │
 └── 📘 README.md
+```
+
+---
+
+## 👨‍💻 Author
+
+**Ayoub Larbi**, Data Analyst / Statistical Engineer
+[LinkedIn](https://linkedin.com/in/ayoublarbi) · [GitHub](https://github.com/Ayoub-LARBI)
