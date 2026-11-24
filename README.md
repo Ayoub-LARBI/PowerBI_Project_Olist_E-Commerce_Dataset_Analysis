@@ -114,7 +114,7 @@ The fulfillment chart title is a measure too (`Fulfillment Title`), so it update
 
 ## ⚠️ Data Notes and Limitations
 
-* **Revenue basis:** Page 1 revenue is item price + freight (R$15.84M). My [SQL project](ADD-SQL-REPO-URL) reports R$16.0M, which is recorded payments (`payment_value`). The two totals differ by about 1%.
+* **Revenue basis:** Page 1 revenue is item price + freight (R$15.84M). My [SQL project](https://github.com/Ayoub-LARBI/SQL_Project_Olist_E-Commerce_Dataset_Analysis) reports R$16.0M, which is recorded payments (`payment_value`). The two totals differ by about 1%.
 * **Order counts:** Page 1 order counts are summed across category groups, so an order with items in two categories is counted twice. Totals can exceed distinct orders by roughly 1% (about 100K here vs 99,440 in SQL). Review counts on Page 2 are exact (99,224).
 * **Time range:** trend charts show Jan 2017 to Aug 2018. 2016 and Sep to Oct 2018 have very few orders or reviews and are excluded.
 * **Definitions:** a delivery is late if it arrived after the estimated delivery date. Only delivered orders are included. Category ratings include only categories with at least 50 reviews.
