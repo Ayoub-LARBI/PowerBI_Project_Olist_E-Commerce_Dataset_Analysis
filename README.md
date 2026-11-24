@@ -7,6 +7,8 @@ A two-page Power BI dashboard on the Olist Brazilian e-commerce dataset (Sep 201
 1. **Page 1: Revenue Overview**: revenue, orders, monthly and cumulative revenue, top categories, and order fulfillment status.
 2. **Page 2: Logistics & Customer Satisfaction**: review scores, on-time vs late delivery ratings, the monthly rating trend, and the lowest-rated categories.
 
+Check out the PowerBI dashboard here : [dashboard](dashboard)
+
 ---
 
 ## 📸 Dashboard Previews
@@ -151,6 +153,7 @@ The fulfillment chart title is a measure too (`Fulfillment Title`), so it update
 │   └── 📄 03_global_satisfaction_kpis.sql
 │
 └── 📘 README.md
+<<<<<<< HEAD
 ```
 
 ---
@@ -159,3 +162,5 @@ The fulfillment chart title is a measure too (`Fulfillment Title`), so it update
 
 **Ayoub Larbi**, Data Analyst / Statistical Engineer
 [LinkedIn](https://linkedin.com/in/ayoublarbi) · [GitHub](https://github.com/Ayoub-LARBI)
+=======
+>>>>>>> e4ea4ebd438b06bcf9b4c17085a490e17ddc83e3
